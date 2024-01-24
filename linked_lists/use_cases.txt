@@ -1,0 +1,27 @@
+PROS:
+Linked lists are good to use when you have an unknown number of items to store.
+Using a data structure like an array would require you to specify the size up front;
+exceeding that size involves invoking a resizing algorithm which has a linear run time.
+You should also use linked lists when you will only remove nodes at either the head or tail
+of the list to maintain a constant run time.
+This requires maintaining pointers to the nodes at the head and tail of the list but the memory
+overhead will pay for itself if this is an operation you will be performing many times.
+
+CONS:
+What linked lists are not very good for is random insertion, accessing nodes by index, and searching.
+
+MORE:
+At the expense of a little memory (in most cases 4 bytes would suffice), and a few
+more read/writes you could maintain a count variable that tracks how many items are
+contained in the list so that accessing such a primitive property is a constant operation
+you just need to update count during the insertion and deletion algorithms.
+
+WHEN TO USE:
+Singly linked lists should be used when you are only performing basic insertions.
+
+In general doubly linked lists are more accommodating for non-trivial operations on a linked list.
+We recommend the use of a doubly linked list when you require forwards and backwards traversal.
+For the most cases this requirement is present. For example, consider a token stream 
+that you want to parse in a recursive descent fashion. Sometimes you will have to backtrack
+in order to create the correct parse tree. In this scenario a doubly linked list is best as its 
+design makes bi-directional traversal much simpler and quicker than that of a singly linked list.
