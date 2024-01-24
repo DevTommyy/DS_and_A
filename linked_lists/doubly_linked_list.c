@@ -4,6 +4,7 @@
 struct Node {
     int val;
     struct Node* next;
+    struct Node* prev;
 } typedef Node;
 
 struct LinkedList {
@@ -13,20 +14,42 @@ struct LinkedList {
 
 typedef enum {true = 1, false = 0} bool;
 
-/// this is infallible, if not for the malloc
-/// only if the sysem fails to allocate the memory
-/// this function fails
-void push(LinkedList* list, int val) {
+void freeAll(LinkedList* list);
+
+// this is infallible, if not for the malloc
+// only if the sysem fails to allocate the memory
+// this function fails
+/// pushes `val` to the end of the list
+void push_back(LinkedList* list, int val) {
     Node* node = malloc(sizeof(Node));
     node->val = val;
     node->next = NULL;
+    node->prev = NULL;
     
     if (list->head == NULL) {
         list->head = node;
         list->tail = node;
     } else {
+        node->prev = list->tail;
         list->tail->next = node;
         list->tail = node;
+    }
+}
+
+/// pushes `val` to the start of the list
+void push_front(LinkedList* list, int val) {
+    Node* node = malloc(sizeof(Node));
+    node->val = val;
+    node->next = NULL;
+    node->prev = NULL;
+    
+    if (list->head == NULL) {
+        list->head = node;
+        list->tail = node;
+    } else {
+        node->next = list->head;
+        list->head->prev = node;
+        list->head = node;
     }
 }
 
@@ -82,30 +105,47 @@ bool delete(LinkedList* list, int val) {
             } else {
                 // deleting the head
                 list->head = list->head->next;
+                list->head->prev = NULL;
             }
             return true;
         }
         Node* cursor = list->head;
-        // searching for the node before the one to delete
-        while(cursor->next != NULL && cursor->next->val != val) {
+        // searching for the node to delete
+        while(cursor != NULL && cursor->val != val) {
             cursor = cursor->next;
         } 
         // if was found
-        if (cursor->next != NULL) {
+        if (cursor != NULL) {
             // we are removing the tail
-            if (cursor->next == list->tail) {
-                list->tail = cursor;
+            if (cursor == list->tail) {
+                list->tail = list->tail->prev;
+                list->tail->next = NULL;
             } else {
                 // we are removing in between
-                *cursor->next = *cursor->next->next;
+                cursor->prev->next = cursor->next;
+                cursor->next->prev = cursor->prev;
                 // dereferencing cause cursor is a pointer to a pointer
             }
+            free(cursor); 
             return true;
         } else {
             // it wasn't found
             return false;
         }
     }
+}
+
+/// Consumes a `LinkedList` and reverses it
+LinkedList* rev(LinkedList list) {
+    LinkedList* reversed = malloc(sizeof(LinkedList));
+    reversed->head = NULL;
+    reversed->tail = NULL;
+    while (list.head != NULL) {
+        push_front(reversed, list.head->val);
+        list.head = list.head->next;
+    }
+    freeAll(&list);
+    return reversed;
 }
 
 /// pretty prints the list
@@ -137,38 +177,40 @@ int main(int argc, char const *argv[]) {
     list->head = NULL;
     list->tail = NULL;
     
-   // Push some elements into the list
-    push(list, 10);
-    push(list, 20);
-    push(list, 30);
-    push(list, 40);
+   // Test push_back
+    push_back(list, 1);
+    push_back(list, 2);
+    push_back(list, 3);
 
-    // Print the initial list
-    printf("Initial List:\n");
+    // Test push_front
+    push_front(list, 0);
+
+    // Test pprintList
+    printf("Original List:\n");
     pprintList(list);
 
-    // Test the contains function
-    int searchValue = 20;
-    if (contains(list, searchValue)) {
-        printf("List contains %d.\n", searchValue);
-    } else {
-        printf("List does not contain %d.\n", searchValue);
-    }
+    // Test contains
+    int searchValue = 2;
+    printf("\nDoes the list contain %d? %s\n", searchValue, contains(list, searchValue) ? "Yes" : "No");
 
-    // Test the delete function
-    int deleteValue = 30;
-    if (delete(list, deleteValue)) {
-        printf("Deleted %d from the list.\n", deleteValue);
-    } else {
-        printf("%d not found in the list.\n", deleteValue);
-    }
-
-    // Print the modified list
-    printf("Modified List:\n");
+    // Test delete
+    int deleteValue = 2;
+    printf("\nDeleting %d from the list...\n", deleteValue);
+    bool deletionResult = delete(list, deleteValue);
+    printf("Deletion Result: %s\n", deletionResult ? "Success" : "Failure");
+    
+    // Test pprintList after deletion
+    printf("\nList after deletion:\n");
     pprintList(list);
 
-    // Free all the allocated memory
+    // Test reverse
+    LinkedList* reversedList = rev(*list);
+    printf("\nReversed List:\n");
+    pprintList(reversedList);
+
+    // Free all allocated memory
     freeAll(list);
+    freeAll(reversedList);
 
     return 0;
 }
