@@ -124,7 +124,12 @@ bool delete(LinkedList* list, int val) {
                 // we are removing in between
                 cursor->prev->next = cursor->next;
                 cursor->next->prev = cursor->prev;
-                // dereferencing cause cursor is a pointer to a pointer
+                /*  
+                 * idk why there is no dereferncing
+                 * maybe cause cursor is a pointer  to a pointer
+                 * but cursor->prev is the actual pointer so by modifying
+                 * it i'm modifying the actual list
+                */
             }
             free(cursor); 
             return true;
