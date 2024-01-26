@@ -70,6 +70,13 @@ Node* getParent(Node* current, int val) {
     }
 }
 
+/// inserts a node into the tree if its the root
+/// or calls an helper function to insert it
+/// 
+/// # Params
+///
+/// `tree` the `Tree` in which to insert
+/// `val` an int representing the value to insert
 void insert(Tree* tree, int val) {
     tree->len++;
 
@@ -88,6 +95,7 @@ void insert(Tree* tree, int val) {
 /// inserts a node into the tree
 /// 
 /// # Params
+///
 /// `current` the root of the `Tree`
 /// `val` an int representing the value to insert
 void insertNode(Node* current, Node* node) {
@@ -227,12 +235,14 @@ int max(Node* current) {
     }
 }
 
-/// prints the tree
+/// prints the tree in orders based on where you put the print
 void printInorder(Node* node) {
     if (node != NULL) {
-        printf("%d ", node->val); // if print is there, from start to end
-        printInorder(node->left); // if print is there root is in the centre
-        printInorder(node->right); // if print is there from end to start
+        printf("%d ", node->val); // if print is there, from start to end (preorder)
+        printInorder(node->left); // if print is there root is in the centre (inorder)
+        printInorder(node->right); // if print is there from end to start (postorder)
+        // as the comments say the order should be what is in the parentheses but inorder
+        // is actually like this
     }
 }
 
