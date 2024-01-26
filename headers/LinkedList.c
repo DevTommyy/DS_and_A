@@ -39,6 +39,7 @@ int list_len(LinkedList* list) {
     ListNode* cursor = list->head;
     while (cursor != NULL) {
         len++;
+        cursor = cursor->next;
     }
     return len;
 }
@@ -46,7 +47,7 @@ int list_len(LinkedList* list) {
 /// returns `true` if a list is empty otherwise `false`
 bool list_is_empty(LinkedList* list) {
     if (list->head == NULL) {
-                return true;
+        return true;
     } else {
         return false;
     }
@@ -238,10 +239,10 @@ LinkedList* list_rev(LinkedList list) {
     reversed->head = NULL;
     reversed->tail = NULL;
     while (list.head != NULL) {
-        push_front(reversed, list.head->val);
+        list_push_front(reversed, list.head->val);
         list.head = list.head->next;
     }
-    freeAll(&list);
+    list_freeAll(&list);
     return reversed;
 }
 

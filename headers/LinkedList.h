@@ -6,12 +6,12 @@ struct ListNode {
     int val;
     struct ListNode* next;
     struct ListNode* prev;
-} typedef Node;
+} typedef ListNode;
 
 // Define the LinkedList structure
 struct LinkedList {
-    Node* head;
-    Node* tail;
+    ListNode* head;
+    ListNode* tail;
 }typedef LinkedList;
 
 // Define boolean type
