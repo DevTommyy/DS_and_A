@@ -1,0 +1,15 @@
+PROS:
+It has logarithmic insertion, lookup, and deletion it is very effecient. Traversal remains linear.
+
+CONS:
+Those run times can only be ottained with a decently balanced binary tree, but a normal
+binary tree doesn't enforce such property.
+If the tree is pathologically unbalanced the operations become linear
+
+MORE:
+Trees are recursive data structures, so typically you will find that
+many algorithms that operate on a tree are recursive.
+
+WHEN TO USE:
+A binary search tree is a good solution when you need to represent types that are ordered
+according to some custom rules inherent to that type.
