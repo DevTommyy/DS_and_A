@@ -13,13 +13,44 @@ struct LinkedList {
     ListNode* tail;
 } typedef LinkedList;
 
+int list_len(LinkedList* list);
+bool list_is_empty(LinkedList* list);
+
 void list_push_back(LinkedList* list, int val);
 void list_push_front(LinkedList* list, int val);
-bool list_contains(LinkedList* list, int val);
+
+int list_pop_front(LinkedList* list);
+int list_pop_back(LinkedList* list);
+
 bool list_delete(LinkedList* list, int val);
+
+bool list_contains(LinkedList* list, int val);
 LinkedList* list_rev(LinkedList list);
+
 void list_pprint(LinkedList* list);
 void list_freeAll(LinkedList* list);
+
+/// returns the length of a list
+int list_len(LinkedList* list) {
+    if (list->head == NULL) {
+            return 0;
+    }
+    int len = 0;
+    ListNode* cursor = list->head;
+    while (cursor != NULL) {
+        len++;
+    }
+    return len;
+}
+
+/// returns `true` if a list is empty otherwise `false`
+bool list_is_empty(LinkedList* list) {
+    if (list->head == NULL) {
+                return true;
+    } else {
+        return false;
+    }
+}
 
 // this is infallible, if not for the malloc
 // only if the sysem fails to allocate the memory
@@ -55,6 +86,62 @@ void list_push_front(LinkedList* list, int val) {
         node->next = list->head;
         list->head->prev = node;
         list->head = node;
+    }
+}
+
+/// remove the first element of the list and return it's value
+/// 
+/// # Returns 
+/// `-1` if the list is already empty
+/// `val` which is an int representing the value of the node popped
+int list_pop_front(LinkedList* list) {
+    if (list_is_empty(list)) {
+        return -1;
+    } else  {
+        // cases are:
+        // - removing the only node
+        // - removing the first node
+        int val = list->head->val;
+
+        if (list_len(list) == 1) {
+            // only node present
+            list->head = NULL;
+            list->tail = NULL;
+        } else {
+            // other nodes present, moving the head to the next node
+            list->head = list->head->next;
+            free(list->head->prev);
+            list->head->prev = NULL;
+        }
+        return val;
+    }
+}
+
+/// remove the last element of the list and return it's value
+/// 
+/// # Returns 
+/// `-1` if the list is already empty
+/// `val` which is an int representing the value of the node popped
+int list_pop_back(LinkedList* list) {
+    if (list_is_empty(list)) {
+        return -1;
+    } else {
+        // cases are:
+        // - removing the only node
+        // - removing the last node
+        int val = list->tail->val;
+
+        if (list_len(list) == 1) {
+            // only node present
+            list->head = NULL;
+            list->tail = NULL;
+        } else {
+            // other nodes present, moving the tail to the previous node
+            list->tail = list->tail->prev;
+            free(list->tail->next);
+            list->tail->next = NULL;
+        }
+        return val;
     }
 }
 

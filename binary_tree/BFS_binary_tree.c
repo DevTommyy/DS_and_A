@@ -26,6 +26,7 @@ bool delete(Tree* tree, int val);
 int min(Node* current);
 int max(Node* current);
 void printInorder(Node* node);
+void printBreadthFirst(Node* current);
 void freeAll(Node* node);
 
 Node* get(Node* current, int val) {
@@ -212,7 +213,48 @@ void printInorder(Node* node) {
     }
 }
 
+/*
+4) q ← queue
+5) while root 6= ∅
+6) yield root.Value
+7) if root.Left 6= ∅
+8) q.Enqueue(root.Left)
+9) end if
+10) if root.Right 6= ∅
+11) q.Enqueue(root.Right)
+12) end if
+13) if !q.IsEmpty()
+14) root ← q.Dequeue()
+15) else
+16) root ← ∅
+17) end if
+18) end while
+19) end BreadthFirst 
+ */
+void printBreadthFirst(Node* current) {
+    LinkedList* queue = malloc(sizeof(LinkedList));
+    queue->head = NULL;
+    queue->tail = NULL;
 
+    while (current != NULL) {
+        printf("%d ", current->val);
+        if (current->left != NULL) {
+            list_push_back(queue, current->left->val);
+        }
+        if (current->right != NULL) {
+            list_push_back(queue, current->right->val);
+        }
+        if (!list_is_empty(queue)) {
+            // current = get(list_pop_front(queue))
+            // TODO implement a pop front and a pop back for the list
+            // the implemetation return NULL if the list is empty and the val removed if it's not
+
+
+        } else {
+            current = NULL;
+        }
+    }       
+}
 
 void freeAll(Node* node) {
     if (node != NULL) {
@@ -269,23 +311,3 @@ int main() {
 }
 // TODO implement BreadthFirstSearch
 // TODO fix this to use the linkedlist as a queue and add docs
-
-/*
-    1) algorithm BreadthFirst(root)
-    2) 3) 4) 5) 6) 7) 8) 9)
-    10) if root.Right ̸= ∅
-    11) q.Enqueue(root.Right)
-    12) end if
-    Pre: root is the root node of the BST
-    Post: the nodes in the BST have been visited in breadth first order q ← queue
-    while root ̸= ∅
-    yield root.Value if root.Left ̸= ∅
-    q.Enqueue(root.Left) end if
-    13) if !q.IsEmpty()
-    14) root ← q.Dequeue()
-    15) else
-    16) root ← ∅
-    17) end if
-    18) end while
-    19) end BreadthFirst 
- */
