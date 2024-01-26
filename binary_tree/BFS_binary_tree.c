@@ -3,6 +3,8 @@
 #include<stdbool.h>
 
 #include"../headers/LinkedList.h"
+//! NOTE: to run this run `gcc BFS_binary_tree.c ../headers/LinkedList.c; ./a.out; rm ./a.out`
+//! within this directory
 
 struct Node {
     int val;
@@ -14,8 +16,6 @@ struct Tree {
     Node* root;
     int len;
 } typedef Tree;
-
-// typedef enum {true = 1, false = 0} bool; declared in linked_list
 
 void insert(Tree* tree, int val);
 void insertNode(Node* current, Node* node);
@@ -213,47 +213,28 @@ void printInorder(Node* node) {
     }
 }
 
-/*
-4) q ← queue
-5) while root 6= ∅
-6) yield root.Value
-7) if root.Left 6= ∅
-8) q.Enqueue(root.Left)
-9) end if
-10) if root.Right 6= ∅
-11) q.Enqueue(root.Right)
-12) end if
-13) if !q.IsEmpty()
-14) root ← q.Dequeue()
-15) else
-16) root ← ∅
-17) end if
-18) end while
-19) end BreadthFirst 
- */
 void printBreadthFirst(Node* current) {
+    Node* root = current;
     LinkedList* queue = malloc(sizeof(LinkedList));
     queue->head = NULL;
     queue->tail = NULL;
+    // printf("current %d\n", current->val);    
 
     while (current != NULL) {
         printf("%d ", current->val);
         if (current->left != NULL) {
             list_push_back(queue, current->left->val);
         }
-        if (current->right != NULL) {
+        if (current->right != NULL) {            
             list_push_back(queue, current->right->val);
         }
         if (!list_is_empty(queue)) {
-            // current = get(list_pop_front(queue))
-            // TODO implement a pop front and a pop back for the list
-            // the implemetation return NULL if the list is empty and the val removed if it's not
-
-
+            int val = list_pop_front(queue);
+            current = get(root, val);
         } else {
             current = NULL;
         }
-    }       
+    }
 }
 
 void freeAll(Node* node) {
@@ -268,10 +249,6 @@ int main() {
     Tree* tree = malloc(sizeof(Tree));
     tree->root = NULL;
     tree->len = 0;
-
-    LinkedList* list = malloc(sizeof(LinkedList));
-    list->head = NULL;
-    list->tail = NULL;
 
     insert(tree, 50);
     insert(tree, 30);
@@ -303,11 +280,12 @@ int main() {
     printInorder(tree->root);
     printf("\n");
 
+    printf("Printing a breadth first version of the tree... \n");
+    printBreadthFirst(tree->root);
+    printf("\n");
 
     // Free memory
     freeAll(tree->root);
 
     return 0;
 }
-// TODO implement BreadthFirstSearch
-// TODO fix this to use the linkedlist as a queue and add docs
