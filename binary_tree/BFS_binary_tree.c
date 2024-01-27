@@ -8,6 +8,9 @@
 
 //! or simply just run make (make -s to silent output of makefile)
 
+//! NOTE: this is a separated file only cause i didnt want to link the
+//! LinkedList header to the binary_tree.c file
+
 struct Node {
     int val;
     struct Node* left;

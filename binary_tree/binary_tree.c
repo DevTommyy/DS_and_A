@@ -21,6 +21,7 @@ bool compare(Node* self, Node* other);
 Node* get(Node* current, int val);
 Node* getParent(Node* current, int val);
 bool delete(Tree* tree, int val);
+bool is_binary_search_tree(Node* root);
 int min(Node* current);
 int max(Node* current);
 void printInorder(Node* node);
@@ -261,6 +262,24 @@ int max(Node* current) {
     } else {
         return min(current->right);
     }
+}
+
+//! NOTE: the function below is just for learning, every single
+//! tree in this program or in this folder is a valid Binary Seach Tree
+
+/// checks if a binary tree is a binary search tree
+///
+/// # Params
+///
+/// `root` the root of the `Tree` to search
+bool is_binary_search_tree(Node* root) {
+    if (root == NULL) {
+        return true;
+    }
+    if ((root->left != NULL && root->left->val >= root->val) || (root->right != NULL && root->right->val <= root->val)) {
+        return false;
+    }
+    return is_binary_search_tree(root->left) && is_binary_search_tree(root->right);
 }
 
 /// prints the tree in orders based on where you put the print
