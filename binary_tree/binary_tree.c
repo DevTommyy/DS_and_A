@@ -17,6 +17,7 @@ typedef enum {true = 1, false = 0} bool;
 void insert(Tree* tree, int val);
 void insertNode(Node* current, Node* node);
 bool contains(Node* current, int val);
+bool compare(Node* self, Node* other);
 Node* get(Node* current, int val);
 Node* getParent(Node* current, int val);
 bool delete(Tree* tree, int val);
@@ -131,7 +132,7 @@ bool contains(Node* current, int val) {
     } else {
         if (current->val == val) {
         return true;
-        } else if (current->val < val) {
+        } else if (val < current->val) {
             return contains(current->left, val);
         } else {
             return contains(current->right, val);
@@ -217,6 +218,33 @@ bool delete(Tree* tree, int val) {
     }
 }
 
+/// compares two trees
+///
+/// # Parameters 
+///
+/// `self` the first `Tree*`
+/// `other` the second `Tree*`
+///
+/// # Returns 
+/// 
+/// `true` if they are equal, `false` if they arent
+bool compare(Node* self, Node* other) {
+    // both are null
+    if (self == NULL && other == NULL) {
+        return true;
+    }
+    if (self->val == other->val) {
+        // they have the same value so a recursive check is performed
+        // as soon as one value is different than the other or one is
+        // NULL and the other isn't the function return false
+        return compare(self->left, other->left) && compare(self->right, other->right);
+    } else {
+        return false;
+    }
+    // this is if only one of the two is null
+    return false;
+}
+
 /// finds the smallest value in a tree
 int min(Node* current) {
     if (current->left == NULL) {
@@ -279,6 +307,10 @@ int main() {
     // Test contains function
     printf("Tree contains 10: %s\n", contains(tree->root, 10) ? "true" : "false");
     printf("Tree contains 8: %s\n", contains(tree->root, 8) ? "true" : "false");
+
+    insert(tree, 40);
+    printf("Tree contains 40: %s\n", contains(tree->root, 40) ? "true" : "false");
+
 
     // Test get function
     printf("Node with value 5: %p (represented as memory location, 0x0 means NULL)\n", get(tree->root, 5));

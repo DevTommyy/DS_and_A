@@ -24,6 +24,7 @@ void tree_insertTreeNode(TreeNode* current, TreeNode* node);
 bool tree_delete(BinaryTree* tree, int val);
 
 bool tree_contains(TreeNode* current, int val);
+bool tree_compare(TreeNode* self, TreeNode* other);
 
 int tree_min(TreeNode* current);
 int tree_max(TreeNode* current);
