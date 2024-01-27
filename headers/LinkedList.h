@@ -14,8 +14,6 @@ struct LinkedList {
     ListNode* tail;
 }typedef LinkedList;
 
-// Define boolean type
-
 // Function prototypes
 int list_len(LinkedList* list);
 bool list_is_empty(LinkedList* list);

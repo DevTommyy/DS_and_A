@@ -132,9 +132,9 @@ bool contains(Node* current, int val) {
         if (current->val == val) {
         return true;
         } else if (current->val < val) {
-            contains(current->left, val);
+            return contains(current->left, val);
         } else {
-            contains(current->right, val);
+            return contains(current->right, val);
         }
         return false;
     }
