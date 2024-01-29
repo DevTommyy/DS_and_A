@@ -60,4 +60,4 @@ There are two primary approaches for implementing a heap data structure:
 # In This Case
 
 I will be using the array approach cause the pointer approach
-would cause too much overhead
+would cause overhead
