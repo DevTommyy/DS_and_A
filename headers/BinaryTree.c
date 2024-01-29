@@ -22,6 +22,7 @@ void tree_insertTreeNode(TreeNode* current, TreeNode* node);
 bool tree_delete(BinaryTree* tree, int val);
 
 bool tree_contains(TreeNode* current, int val);
+bool tree_compare(TreeNode* self, TreeNode* other);
 
 int tree_min(TreeNode* current);
 int tree_max(TreeNode* current);
@@ -218,6 +219,33 @@ bool tree_contains(TreeNode* current, int val) {
             return tree_contains(current->right, val);
         }
     }
+}
+
+/// compares two trees
+///
+/// # Parameters 
+///
+/// `self` the first `Tree*`
+/// `other` the second `Tree*`
+///
+/// # Returns 
+/// 
+/// `true` if they are equal, `false` if they arent
+bool tree_compare(TreeNode* self, TreeNode* other) {
+    // both are null
+    if (self == NULL && other == NULL) {
+        return true;
+    }
+    if (self->val == other->val) {
+        // they have the same value so a recursive check is performed
+        // as soon as one value is different than the other or one is
+        // NULL and the other isn't the function return false
+        return compare(self->left, other->left) && compare(self->right, other->right);
+    } else {
+        return false;
+    }
+    // this is if only one of the two is null
+    return false;
 }
 
 /// finds the smallest value in a tree

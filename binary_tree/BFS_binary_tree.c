@@ -8,6 +8,9 @@
 
 //! or simply just run make (make -s to silent output of makefile)
 
+//! NOTE: this is a separated file only cause i didnt want to link the
+//! LinkedList header to the binary_tree.c file
+
 struct Node {
     int val;
     struct Node* left;
@@ -137,13 +140,40 @@ bool contains(Node* current, int val) {
     } else {
         if (current->val == val) {
         return true;
-        } else if (current->val < val) {
+        } else if (val < current->val) {
             return contains(current->left, val);
         } else {
             return contains(current->right, val);
         }
         return false;
     }
+}
+
+/// compares two trees
+///
+/// # Parameters 
+///
+/// `self` the first `Tree*`
+/// `other` the second `Tree*`
+///
+/// # Returns 
+/// 
+/// `true` if they are equal, `false` if they arent
+bool compare(Node* self, Node* other) {
+    // both are null
+    if (self == NULL && other == NULL) {
+        return true;
+    }
+    if (self->val == other->val) {
+        // they have the same value so a recursive check is performed
+        // as soon as one value is different than the other or one is
+        // NULL and the other isn't the function return false
+        return compare(self->left, other->left) && compare(self->right, other->right);
+    } else {
+        return false;
+    }
+    // this is if only one of the two is null
+    return false;
 }
 
 /// # Cases
