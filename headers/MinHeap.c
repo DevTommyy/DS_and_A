@@ -16,13 +16,27 @@ struct Heap {
     size_t current;
 } typedef Heap;
 
-void add(Heap* heap, int val);
 void min_heapify(Heap* heap);
-void swap(Heap* heap, int first_idx, int second_idx);
-void print(Heap* heap);
-int index_of(Heap* heap, int val);
-bool delete(Heap* heap, int val);
-bool contains(Heap* heap, int val);
+
+void heap_add(Heap* heap, int val);
+bool heap_delete(Heap* heap, int val);
+
+int heap_index_of(Heap* heap, int val);
+bool heap_contains(Heap* heap, int val);
+void heap_swap(Heap* heap, int first_idx, int second_idx);
+
+void heap_print(Heap* heap);
+
+/// "Normalizes" an `Heap` into it's specified type of heap
+/// checking if each elemet respects its properties
+void min_heapify(Heap* heap) {
+    int idx = heap->current - 1;
+    // (idx -1) / 2] is the parent idx
+    while (idx > 0 && heap->elements[idx] < heap->elements[(idx - 1) / 2]) {
+        heap_swap(heap, idx, (idx -1) / 2);
+        idx = (idx -1) / 2;
+    }
+}
 
 /// Inserts a new element inside the heap
 ///
@@ -30,10 +44,10 @@ bool contains(Heap* heap, int val);
 /// 
 /// This function can potentially fail in the case
 /// a value is inserted when the heap is full
-void add(Heap* heap, int val) {
+void heap_add(Heap* heap, int val) {
     if (heap->current + 1 == SIZE) {
         printf( 
-            "Couldn't add anymore elemets, the length \
+            "Couldn' add anymore elemets, the length \
              of the heap exceeds the maximum size %d",
             SIZE
          );
@@ -43,52 +57,6 @@ void add(Heap* heap, int val) {
         heap->current++;
         min_heapify(heap);
     }
-}
-
-/// "Normalizes" an `Heap` into it's specified type of heap
-/// checking if each elemet respects its properties
-void min_heapify(Heap* heap) {
-    int idx = heap->current - 1;
-    // (idx -1) / 2] is the parent idx
-    while (idx > 0 && heap->elements[idx] < heap->elements[(idx - 1) / 2]) {
-        swap(heap, idx, (idx -1) / 2);
-        idx = (idx -1) / 2;
-    }
-}
-
-/// Swaps a child and its parent on the heap given their indexes
-///
-/// # Params
-/// 
-/// - `heap` the `Heap*` we are referring to
-/// - `child_idx` the index of the child to swap
-/// - `parent_idx` the index of the parent to swap
-void swap(Heap* heap, int child_idx, int parent_idx) {
-    int tmp = heap->elements[child_idx];
-    heap->elements[child_idx] = heap->elements[parent_idx];
-    heap->elements[parent_idx] = tmp;
-}
-
-/// Returns an index of a given value in the heap
-/// 
-/// # Params
-/// 
-/// - `heap` the `Heap*` we are referring to
-/// - `val` an `int` representing the value of which we are trying to 
-/// find the index 
-/// 
-/// # Returns
-/// 
-/// An `int` representing the index of the value if it was found, if  
-/// the value is not found the fucnction returns `-1`
-int index_of(Heap* heap, int val) {
-    for (size_t i = 0; i < heap->current; i++) {
-        if (heap->elements[i] == val) {
-            return i;
-        }
-    }
-    return -1;
-    
 }
 
 /* 
@@ -110,8 +78,8 @@ int index_of(Heap* heap, int val) {
 /// # Returns
 ///
 /// A `bool` flag stating if the value was found or not
-bool delete(Heap* heap, int val) { 
-    int idx = index_of(heap, val);
+bool heap_delete(Heap* heap, int val) { 
+    int idx = heap_index_of(heap, val);
     if (idx < 0) {
         return false;
     }
@@ -123,26 +91,48 @@ bool delete(Heap* heap, int val) {
     heap->elements[heap->current] = 0;
 
     // save its children indexes
-    int left = (2 * idx) + 1;
-    int right = (2 * idx) + 2;
+    size_t left = (2 * idx) + 1;
+    size_t right = (2 * idx) + 2;
     
     while  (left < heap->current && right < heap->current &&
         ((heap->elements[idx] > heap->elements[left]) ||
         (heap->elements[idx] > heap->elements[right]))
     ){
         if (heap->elements[left] < heap->elements[right]) { // the left one is the smallest
-            swap(heap, left, idx);
+            heap_swap(heap, left, idx);
             idx = left;
             left = (2 * idx) + 1;
             right = (2 * idx) + 2;
         } else { // the right one is the smallest
-            swap(heap, right, idx);
+            heap_swap(heap, right, idx);
             idx = right;
             left = (2 * idx) + 1;
             right = (2 * idx) + 2;
         }
     }
     return true;
+}
+
+/// Returns an index of a given value in the heap
+/// 
+/// # Params
+/// 
+/// - `heap` the `Heap*` we are referring to
+/// - `val` an `int` representing the value of which we are trying to 
+/// find the index 
+/// 
+/// # Returns
+/// 
+/// An `int` representing the index of the value if it was found, if  
+/// the value is not found the fucnction returns `-1`
+int heap_index_of(Heap* heap, int val) {
+    for (size_t i = 0; i < heap->current; i++) {
+        if (heap->elements[i] == val) {
+            return i;
+        }
+    }
+    return -1;
+    
 }
 
 /*
@@ -160,10 +150,10 @@ bool delete(Heap* heap, int val) {
 /// # Returns
 /// 
 /// A `bool` flag stating if the value was found or not
-bool contains(Heap* heap, int val) {
+bool heap_contains(Heap* heap, int val) {
     // initialize the various indexes and the number of nodes
-    int start_node = 0;
-    int end_node = 0;
+    size_t start_node = 0;
+    size_t end_node = 0;
     int nodes = 1;
     int count = 0;
 
@@ -195,8 +185,21 @@ bool contains(Heap* heap, int val) {
     return false;
 }
 
+/// Swaps a child and its parent on the heap given their indexes
+///
+/// # Params
+/// 
+/// - `heap` the `Heap*` we are referring to
+/// - `child_idx` the index of the child to swap
+/// - `parent_idx` the index of the parent to swap
+void heap_swap(Heap* heap, int child_idx, int parent_idx) {
+    int tmp = heap->elements[child_idx];
+    heap->elements[child_idx] = heap->elements[parent_idx];
+    heap->elements[parent_idx] = tmp;
+}
+
 /// Prints the whole heap in an array like manner
-void print(Heap* heap) {
+void heap_print(Heap* heap) {
     printf("[ ");
     for (size_t i = 0; i < heap->current; i++) { 
         // i'm printing while it is not 0 but uninitialized values could 
@@ -204,47 +207,4 @@ void print(Heap* heap) {
         printf("%d ", heap->elements[i]);
     }
     printf("]\n");
-}
-
-// some random testing generated by chatGPT
-int main() {
-    // Allocate memory for the heap dynamically
-    Heap *myHeap = (Heap *)malloc(sizeof(Heap));
-
-    myHeap->current = 0; // Initialize heap
-
-    // Test adding elements to the heap
-    add(myHeap, 10);
-    add(myHeap, 20);
-    add(myHeap, 15);
-    add(myHeap, 7);
-    add(myHeap, 25);
-
-    printf("Heap after adding elements: ");
-    print(myHeap);
-
-    // Test deleting elements from the heap
-    delete(myHeap, 15);
-    printf("Heap after deleting 15: ");
-    print(myHeap);
-
-    // Test contains function
-    int val_to_check = 7;
-    if (contains(myHeap, val_to_check)) {
-        printf("%d is in the heap.\n", val_to_check);
-    } else {
-        printf("%d is not in the heap.\n", val_to_check);
-    }
-
-    val_to_check = 100; // Value not in the heap
-    if (contains(myHeap, val_to_check)) {
-        printf("%d is in the heap.\n", val_to_check);
-    } else {
-        printf("%d is not in the heap.\n", val_to_check);
-    }
-
-    // Free dynamically allocated memory
-    free(myHeap);
-
-    return 0;
 }

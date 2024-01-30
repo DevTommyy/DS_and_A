@@ -126,7 +126,7 @@ bool delete(Heap* heap, int val) {
     int left = (2 * idx) + 1;
     int right = (2 * idx) + 2;
     
-    while (left < heap->current && 
+    while (left < heap->current && right < heap->current &&
         ((heap->elements[idx] < heap->elements[left]) ||
         (heap->elements[idx] < heap->elements[right]))
     ) {
