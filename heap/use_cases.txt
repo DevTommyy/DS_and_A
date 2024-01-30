@@ -1,0 +1,18 @@
+PROS:
+In both the insertion and deletion a heap maintains its order
+according to the selected ordering strategy (that can be min heap or max heap).
+The run time complexities of those algorithms is `O(log n)`
+
+CONS:
+The cost of maintaining the strategy still come at a price.
+We will also have to factor in the cost of dynamic array expansion at some stage.
+This will occur if the number of items within the heap outgrows the space allocated
+in the heap’s backing array.
+
+MORE:
+When you come across a heap and you are not told what strategy
+it enforces you should assume that it uses the min-heap strategy.
+If the heap can be configured otherwise, this will often require you to state that explicitly.
+
+WHEN TO USE:
+Heaps are most commonly used to implement priority queues and to facilitate heap sort.

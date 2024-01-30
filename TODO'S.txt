@@ -1,2 +1,4 @@
-TODO add time complexity into the docs fo the header implementations of the various data sctructure and algorithms
-TODO make a max heap
+TODO add time complexity into the docs fo the header implementations of the 
+various data sctructure and algorithms
+
+TODO make the header for the heap

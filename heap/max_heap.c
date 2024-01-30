@@ -17,7 +17,7 @@ struct Heap {
 } typedef Heap;
 
 void add(Heap* heap, int val);
-void min_heapify(Heap* heap);
+void max_heapify(Heap* heap);
 void swap(Heap* heap, int first_idx, int second_idx);
 void print(Heap* heap);
 int index_of(Heap* heap, int val);
@@ -41,16 +41,16 @@ void add(Heap* heap, int val) {
     } else {
         heap->elements[heap->current] = val;
         heap->current++;
-        min_heapify(heap);
+        max_heapify(heap);
     }
 }
 
 /// "Normalizes" an `Heap` into it's specified type of heap
 /// checking if each elemet respects its properties
-void min_heapify(Heap* heap) {
+void max_heapify(Heap* heap) {
     int idx = heap->current - 1;
     // (idx -1) / 2] is the parent idx
-    while (idx > 0 && heap->elements[idx] < heap->elements[(idx - 1) / 2]) {
+    while (idx > 0 && heap->elements[idx] > heap->elements[(idx - 1) / 2]) {
         swap(heap, idx, (idx -1) / 2);
         idx = (idx -1) / 2;
     }
@@ -126,16 +126,16 @@ bool delete(Heap* heap, int val) {
     int left = (2 * idx) + 1;
     int right = (2 * idx) + 2;
     
-    while  (left < heap->current && 
-        ((heap->elements[idx] > heap->elements[left]) ||
-        (heap->elements[idx] > heap->elements[right]))
-    ){
-        if (heap->elements[left] < heap->elements[right]) { // the left one is the smallest
+    while (left < heap->current && 
+        ((heap->elements[idx] < heap->elements[left]) ||
+        (heap->elements[idx] < heap->elements[right]))
+    ) {
+        if (heap->elements[left] > heap->elements[right]) {// the left one is the bigger one
             swap(heap, left, idx);
             idx = left;
             left = (2 * idx) + 1;
             right = (2 * idx) + 2;
-        } else { // the right one is the smallest
+        } else { // the right one is the bigger one
             swap(heap, right, idx);
             idx = right;
             left = (2 * idx) + 1;
@@ -145,7 +145,7 @@ bool delete(Heap* heap, int val) {
     return true;
 }
 
-/*
+/* 
  * The following algorithm is specifically designed for a min-heap.
  * To tailor the algorithm for a max-heap the two comparison operations in 
  * the else if condition within the inner while loop should be flipped. 
@@ -181,8 +181,8 @@ bool contains(Heap* heap, int val) {
             // the element can't be in the heap
             if (val == heap->elements[start_node]) {
                 return true;
-            } else if (val > heap->elements[(start_node - 1) / 2] 
-                    && val < heap->elements[start_node]) {
+            } else if (val < heap->elements[(start_node - 1) / 2] 
+                    && val > heap->elements[start_node]) {
                 count++;
             }
             start_node++;
@@ -198,7 +198,7 @@ bool contains(Heap* heap, int val) {
 /// Prints the whole heap in an array like manner
 void print(Heap* heap) {
     printf("[ ");
-    for (size_t i = 0; i < heap->current; i++) { 
+    for (size_t i = 0; i < sizeof(heap->elements) && heap->elements[i] != 0; i++) { 
         // i'm printing while it is not 0 but uninitialized values could 
         // be random numbers too
         printf("%d ", heap->elements[i]);
