@@ -30,11 +30,12 @@ int tree_max(TreeNode* current);
 void tree_printInorder(TreeNode* node);
 void tree_freeAll(TreeNode* node);
 
-/// gets a node from the tree given it's value
+/// Gets a node from the tree given it's value
+/// in an `O(log n)` time.
 ///  
 /// # Returns
-/// A `NULL` pointer if the node isn't found
-/// A `TreeNode` pointer if the value is found 
+/// - A `NULL` pointer if the node isn't found
+/// - A `TreeNode` pointer if the value is found 
 TreeNode* tree_get(TreeNode* current, int val) {
     if (current == NULL) {
         return NULL;
@@ -50,11 +51,13 @@ TreeNode* tree_get(TreeNode* current, int val) {
     }
 }
 
-/// gets the parent of a node given the child value
+/// Gets the parent of a node given the child value
+/// in an `O(log n)` time.
+///  
 /// 
 /// # Returns
-/// A `NULL` pointer if the parent node isn't found
-/// A `TreeNode` pointer if the parent node is found 
+/// - A `NULL` pointer if the parent node isn't found
+/// - A `TreeNode` pointer if the parent node is found 
 TreeNode* tree_getParent(TreeNode* current, int val) {
     if (current == NULL || current->val == val) {
         // No parent or the node itself is the root
@@ -75,13 +78,13 @@ TreeNode* tree_getParent(TreeNode* current, int val) {
     }
 }
 
-/// inserts a node into the tree if its the root
-/// or calls an helper function to insert it
+/// Inserts a node into the tree if its the root
+/// or calls an helper function to insert it.
 /// 
 /// # Params
 ///
-/// `tree` the `BinaryTree` in which to insert
-/// `val` an int representing the value to insert
+/// - `tree` the `BinaryTree` in which to insert
+/// - `val` an int representing the value to insert
 void tree_insert(BinaryTree* tree, int val) {
     tree->len++;
 
@@ -97,12 +100,12 @@ void tree_insert(BinaryTree* tree, int val) {
     }
 }
 
-/// inserts a node into the tree
+/// Inserts a node into the tree in an `O(log n)` time.
 /// 
 /// # Params
 ///
-/// `current` the root of the `BinaryTree`
-/// `val` an int representing the value to insert
+/// - `current` the root of the `BinaryTree`
+/// - `val` an int representing the value to insert
 void tree_insertTreeNode(TreeNode* current, TreeNode* node) {
     if (node->val < current->val) {
         // inserting in the left
@@ -130,7 +133,7 @@ void tree_insertTreeNode(TreeNode* current, TreeNode* node) {
 /// - the node has a left subtree
 /// - the node has both subtrees
 
-/// deletes the node with the value provided
+/// Deletes the node with the value provided in an `O(log n)` time.
 /// 
 /// # Params
 /// 
@@ -198,7 +201,7 @@ bool tree_delete(BinaryTree* tree, int val) {
     }
 }
 
-/// checks if a node is in the tree
+/// Checks if a node is in the tree in an `O(log n)` time.
 /// 
 /// # Params
 /// `current` the root of the `BinaryTree`
@@ -221,7 +224,7 @@ bool tree_contains(TreeNode* current, int val) {
     }
 }
 
-/// compares two trees
+/// Compares two trees, this operation takes `O(n)` time
 ///
 /// # Parameters 
 ///
@@ -248,7 +251,7 @@ bool tree_compare(TreeNode* self, TreeNode* other) {
     return false;
 }
 
-/// finds the smallest value in a tree
+/// finds the smallest value in a tree in an `O(log n)` time.
 int tree_min(TreeNode* current) {
     if (current->left == NULL) {
         return current->val;
@@ -257,7 +260,7 @@ int tree_min(TreeNode* current) {
     }
 }
 
-/// finds the biggest value in a tree
+/// finds the biggest value in a tree in an `O(log n)` time.
 int tree_max(TreeNode* current) {
     if (current->right == NULL) {
         return current->val;
@@ -267,6 +270,7 @@ int tree_max(TreeNode* current) {
 }
 
 /// prints the tree in orders based on where you put the print
+/// this operation takes `O(n)` time
 void tree_printInorder(TreeNode* node) {
     if (node != NULL) {
         printf("%d ", node->val); // if print is there, from start to end (preorder)
@@ -278,6 +282,7 @@ void tree_printInorder(TreeNode* node) {
 }
 
 /// frees all the memory allocated by the list
+/// this operation takes `O(n)` time
 void tree_freeAll(TreeNode* node) {
     if (node != NULL) {
         tree_freeAll(node->left);

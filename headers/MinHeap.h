@@ -4,15 +4,21 @@
 #include <stddef.h> // Include for size_t
 
 
-// Define the Heap structure
 #define SIZE 1024
 
+/// An `Heap` data structure
+///
+/// # Fields
+///
+/// - `elements` an int array of `SIZE` length that contains the elements
+/// of the heap. NOTE: uninitialized values are represented as `0`
+/// - `current` a `size_t` representing the index of the next free space
+/// in the heap
 struct Heap {
     int elements[SIZE];
     size_t current;
 } typedef Heap;
 
-// Function prototypes
 void min_heapify(Heap* heap);
 
 void heap_add(Heap* heap, int val);

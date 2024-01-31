@@ -1,20 +1,34 @@
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
-// Define the Node structure
+/// The element in the tree
+/// 
+/// # Fields
+///
+/// - `val` an `int` representing the val contained
+/// - `left` a pointer to the left child
+/// - `right` a pointer to the right child
 struct TreeNode {
     int val;
     struct TreeNode* left;
     struct TreeNode* right;
 } typedef TreeNode;
 
-// Define the BinaryTree structure
+/// A `Binary Search Tree` data structure
+///
+/// # Fields
+///
+/// - `root` a pointer to the root node
+/// - `len` an `int` representing the length of the tree
+///
+/// NOTE: every `O(log n)` operation
+/// can become an `O(n)` operation in
+/// the case of an higly unbalanced tree
 struct BinaryTree {
     TreeNode* root;
     int len;
 } typedef BinaryTree;
 
-// Function prototypes
 TreeNode* tree_get(TreeNode* current, int val);
 TreeNode* tree_getParent(TreeNode* current, int val);
 

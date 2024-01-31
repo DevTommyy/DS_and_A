@@ -46,7 +46,8 @@ void add(Heap* heap, int val) {
 }
 
 /// "Normalizes" an `Heap` into it's specified type of heap
-/// checking if each elemet respects its properties
+/// checking if each elemet respects its properties.
+/// This takes `O(log n)` time
 void min_heapify(Heap* heap) {
     int idx = heap->current - 1;
     // (idx -1) / 2] is the parent idx

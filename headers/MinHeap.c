@@ -28,7 +28,8 @@ void heap_swap(Heap* heap, int first_idx, int second_idx);
 void heap_print(Heap* heap);
 
 /// "Normalizes" an `Heap` into it's specified type of heap
-/// checking if each elemet respects its properties
+/// checking if each elemet respects its properties.
+/// This takes `O(log n)` time
 void min_heapify(Heap* heap) {
     int idx = heap->current - 1;
     // (idx -1) / 2] is the parent idx
@@ -38,7 +39,8 @@ void min_heapify(Heap* heap) {
     }
 }
 
-/// Inserts a new element inside the heap
+/// Inserts a new element inside the heap.
+/// This takes `O(log n)` time
 ///
 /// # Warnings
 /// 
@@ -68,7 +70,8 @@ void heap_add(Heap* heap, int val) {
  * smallest of them
  */
 /// Deletes an element from the heap and re normalizes it 
-/// if any element break its properties
+/// if any element break its properties.
+/// This takes `O(log n)` time
 ///
 /// # Params
 /// 
@@ -113,7 +116,8 @@ bool heap_delete(Heap* heap, int val) {
     return true;
 }
 
-/// Returns an index of a given value in the heap
+/// Returns an index of a given value in the heap.
+/// This takes `O(n)` time
 /// 
 /// # Params
 /// 
@@ -140,7 +144,8 @@ int heap_index_of(Heap* heap, int val) {
  * To tailor the algorithm for a max-heap the two comparison operations in 
  * the else if condition within the inner while loop should be flipped. 
  */
-/// Checks for a value in the heap
+/// Checks for a value in the heap. This algorithm is optimized to
+/// take in most case `O(log n)` time, but in the worst case it takes `O(n)` time
 /// 
 /// # Params
 /// 
@@ -185,7 +190,8 @@ bool heap_contains(Heap* heap, int val) {
     return false;
 }
 
-/// Swaps a child and its parent on the heap given their indexes
+/// Swaps a child and its parent on the heap given their indexes.
+/// This takes `O(1)` time
 ///
 /// # Params
 /// 
@@ -198,7 +204,8 @@ void heap_swap(Heap* heap, int child_idx, int parent_idx) {
     heap->elements[parent_idx] = tmp;
 }
 
-/// Prints the whole heap in an array like manner
+/// Prints the whole heap in an array like manner.
+/// This takes `O(n)` time
 void heap_print(Heap* heap) {
     printf("[ ");
     for (size_t i = 0; i < heap->current; i++) { 

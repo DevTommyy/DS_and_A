@@ -1,20 +1,30 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-// Define the Node structure
+/// The element in the list
+/// 
+/// # Fields
+///
+/// - `val` an `int` representing the val contained
+/// - `next` a pointer to the next element
+/// - `prev` a pointer to the previous element
 struct ListNode {
     int val;
     struct ListNode* next;
     struct ListNode* prev;
 } typedef ListNode;
 
-// Define the LinkedList structure
+/// A `Linked List` data structure
+///
+/// # Fields
+///
+/// - `head` a pointer to the first node
+/// - `tail` a pointer to the last node
 struct LinkedList {
     ListNode* head;
     ListNode* tail;
 }typedef LinkedList;
 
-// Function prototypes
 int list_len(LinkedList* list);
 bool list_is_empty(LinkedList* list);
 

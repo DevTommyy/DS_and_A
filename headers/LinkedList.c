@@ -30,7 +30,7 @@ LinkedList* list_rev(LinkedList list);
 void list_pprint(LinkedList* list);
 void list_freeAll(LinkedList* list);
 
-/// returns the length of a list
+/// Returns the length of a list, this takes `O(n)` time
 int list_len(LinkedList* list) {
     if (list->head == NULL) {
             return 0;
@@ -44,7 +44,8 @@ int list_len(LinkedList* list) {
     return len;
 }
 
-/// returns `true` if a list is empty otherwise `false`
+/// Returns `true` if a list is empty otherwise `false`.
+/// This is an `O(1)` operation
 bool list_is_empty(LinkedList* list) {
     if (list->head == NULL) {
         return true;
@@ -53,10 +54,12 @@ bool list_is_empty(LinkedList* list) {
     }
 }
 
-// this is infallible, if not for the malloc
+// This is infallible, if not for the malloc
 // only if the sysem fails to allocate the memory
 // this function fails
-/// pushes `val` to the end of the list
+
+/// Pushes `val` to the end of the list.
+/// This is an `O(1)` operation
 void list_push_back(LinkedList* list, int val) {
     ListNode* node = malloc(sizeof(ListNode));
     node->val = val;
@@ -73,7 +76,8 @@ void list_push_back(LinkedList* list, int val) {
     }
 }
 
-/// pushes `val` to the start of the list
+/// Pushes `val` to the start of the list
+/// This is an `O(1)` operation
 void list_push_front(LinkedList* list, int val) {
     ListNode* node = malloc(sizeof(ListNode));
     node->val = val;
@@ -90,7 +94,8 @@ void list_push_front(LinkedList* list, int val) {
     }
 }
 
-/// remove the first element of the list and return it's value
+/// Remove the first element of the list and return it's value.
+/// This is an `O(1)` operation
 /// 
 /// # Returns 
 /// `-1` if the list is already empty
@@ -118,7 +123,8 @@ int list_pop_front(LinkedList* list) {
     }
 }
 
-/// remove the last element of the list and return it's value
+/// Remove the last element of the list and return it's value.
+/// This is an `O(1)` operation
 /// 
 /// # Returns 
 /// `-1` if the list is already empty
@@ -146,7 +152,8 @@ int list_pop_back(LinkedList* list) {
     }
 }
 
-/// checks if the list contains a certain value
+/// Checks if the list contains a certain value.
+/// This takes `O(n)` time
 ///
 /// # Params
 /// 
@@ -179,7 +186,8 @@ bool list_contains(LinkedList* list, int val) {
 /// - the node is in between
 /// - the node isn't there
 
-/// deletes the node with the value provided
+/// Deletes the node with the value provided.
+/// This takes `O(n)` time
 /// 
 /// # Params
 /// 
@@ -233,7 +241,8 @@ bool list_delete(LinkedList* list, int val) {
     }
 }
 
-/// Consumes a `LinkedList` and reverses it
+/// Consumes a `LinkedList` and reverses it.
+/// This takes `O(n)` time
 LinkedList* list_rev(LinkedList list) {
     LinkedList* reversed = malloc(sizeof(LinkedList));
     reversed->head = NULL;
@@ -246,7 +255,7 @@ LinkedList* list_rev(LinkedList list) {
     return reversed;
 }
 
-/// pretty prints the list
+/// Pretty prints the list, this takes `O(n)` time
 void list_pprint(LinkedList* list) {
     // this way i create a pointer that is pointing to the same value as head
     ListNode* cursor = list->head; 
@@ -258,7 +267,8 @@ void list_pprint(LinkedList* list) {
     }
 }
 
-/// frees all the memory allocated by the list
+/// Frees all the memory allocated by the list.
+/// This takes `O(n)` time
 void list_freeAll(LinkedList* list) {
     ListNode* current = list->head;
     while (current != NULL) {
