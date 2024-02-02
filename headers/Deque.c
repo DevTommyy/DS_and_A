@@ -60,7 +60,7 @@ void enqueue_front(Deque* queue, int val) {
     }
 }
 
-/// Remove the first element of the queue and return it's value.
+/// Dequeues the first element of the queue and return it's value.
 /// This is an `O(1)` operation
 /// 
 /// # Returns 
@@ -90,7 +90,7 @@ int dequeue_front(Deque* queue) {
     }
 }
 
-/// Remove the last element of the queue and return it's value.
+/// Dequeues the last element of the queue and return it's value.
 /// This is an `O(1)` operation
 /// 
 /// # Returns 
@@ -119,6 +119,37 @@ int dequeue_back(Deque* queue) {
         return val;
     }
 }
+
+/// Peeks the first element of the queue and return it's value.
+/// This is an `O(1)` operation
+/// 
+/// # Returns 
+///
+/// `0` if the queue is already empty
+/// `val` which is an int representing the value of the node popped
+int peek_front(Deque* queue) {
+    if (queue->head == NULL) {
+        return 0;
+    } else  {
+        return queue->head->val;
+    }
+}
+
+/// Peeks the last element of the queue and return it's value.
+/// This is an `O(1)` operation
+/// 
+/// # Returns 
+///
+/// `0` if the queue is already empty
+/// `val` which is an int representing the value of the node popped
+int peek_back(Deque* queue) {
+    if (queue->head == NULL) {
+        return 0;
+    } else { 
+        return queue->tail->val;
+    }
+}
+
 
 /// Checks if the queue deque_contains a certain value
 /// This is an `O(n)` operation

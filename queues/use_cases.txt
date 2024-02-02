@@ -1,0 +1,19 @@
+PROS:
+Queues have constant insertion and deletion run times, except for priority queues where, since the backing data structure
+is a min or max heap, the insertion and deletion time is logarithmic.
+Searching a queue is fairly unusual—typically you are only interested in the item at the front of the queue.
+Despite that, searching is usually exposed on queues and typically the run time is linear.
+
+MORE:
+There can be many types of queues:
+    - normal queue, a queue where you can only enqueue and dequeue elements from the front,
+    - deque, a queue where you can enqueue and dequeue elements from the front and the back,
+    - priority queue, a queue where you can only enqueue and dequeue elements from the front and they are ordered
+    based on a priority.
+
+WHEN TO USE:
+Queues are an essential data structure that are found in vast amounts of software from user mode
+to kernel mode applications that are core to the system.
+Fundamentally they honour a first in first out (FIFO) strategy, that is the item
+first put into the queue will be the first served, the second item added to the
+queue will be the second to be served and so on.
