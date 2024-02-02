@@ -1,0 +1,8 @@
+TODO implement an unordered set, which is a collection of unique items.
+specifics:
+the implementation is going to have an hash map as its backing data structure to achive near constant time lookup
+adding and deletion of items, i'll have to figure out how to implement it and manage the buckets of the map
+
+TODO implement every type of queue mentioned in the chapter 6 of the DSA book
+
+TODO learn about other data structure like ring buffers and others
