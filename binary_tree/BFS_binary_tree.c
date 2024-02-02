@@ -2,8 +2,8 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
-#include"../headers/LinkedList.h"
-//! NOTE: to run this run `gcc BFS_binary_tree.c ../headers/LinkedList.c; ./a.out; rm ./a.out`
+#include"../headers/Deque.h"
+//! NOTE: to run this run `gcc BFS_binary_tree.c ../headers/Deque.c; ./a.out; rm ./a.out`
 //! within this directory
 
 //! or simply just run make (make -s to silent output of makefile)
@@ -285,7 +285,7 @@ void printInorder(Node* node) {
 /// prints the tree in a breadth first order
 void printBreadthFirst(Node* current) {
     Node* root = current;
-    LinkedList* queue = malloc(sizeof(LinkedList));
+    Deque* queue = malloc(sizeof(Deque));
     queue->head = NULL;
     queue->tail = NULL;
     // printf("current %d\n", current->val);    
@@ -293,13 +293,13 @@ void printBreadthFirst(Node* current) {
     while (current != NULL) {
         printf("%d ", current->val);
         if (current->left != NULL) {
-            list_push_back(queue, current->left->val);
+            enqueue_back(queue, current->left->val);
         }
         if (current->right != NULL) {            
-            list_push_back(queue, current->right->val);
+            enqueue_back(queue, current->right->val);
         }
-        if (!list_is_empty(queue)) {
-            int val = list_pop_front(queue);
+        if (!(queue->head == NULL)) {
+            int val = dequeue_front(queue);
             current = get(root, val);
         } else {
             current = NULL;
