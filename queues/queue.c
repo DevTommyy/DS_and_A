@@ -16,6 +16,7 @@ typedef enum {true = 1, false = 0} bool;
 void enqueue(Queue* queue, int val);
 bool contains(Queue* queue, int val);
 int dequeue(Queue* queue);
+int peek(Queue* queue);
 void print(Queue* queue);
 void freeAll(Queue* queue);
 

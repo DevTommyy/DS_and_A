@@ -150,7 +150,6 @@ int peek_back(Deque* queue) {
     }
 }
 
-
 /// Checks if the queue deque_contains a certain value
 /// This is an `O(n)` operation
 ///
