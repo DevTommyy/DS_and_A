@@ -10,6 +10,8 @@ There can be many types of queues:
     - deque, a queue where you can enqueue and dequeue elements from the front and the back,
     - priority queue, a queue where you can only enqueue and dequeue elements from the front and they are ordered
     based on a priority.
+Note, the only difference beteween a normal queue and a stack is that the stack is LIFO, the queue FIFO
+what that means is that in a stack we always push and pop from it's top
 
 WHEN TO USE:
 Queues are an essential data structure that are found in vast amounts of software from user mode
