@@ -1,0 +1,21 @@
+PROS:
+Both hash maps and sets have constant-time average case insertion, lookup, and deletion (O(1)) for well-distributed hash functions.
+Of curse this is in theory, with collisions, it becomes O(n) in the worst cases (if the hash fucntion is bad enough).
+Hash sets enforce uniqueness of elements and hash maps enforce uniqueness of key (in fact an hash set is build on top of an hash map
+using dummy values as values).
+
+CONS:
+Performance can degrade if the hash function causes clustering or collisions, those have to be handled with either
+linear probing (inserting in the next free space, but this in my opinion is a bad approach that increases the change of collisions) or 
+chaining (basically having a pointer to a linked list as an element).
+Difficult to implement custom ordering or sorting without additional data structures.
+No inherent ordering of elements.
+
+MORE:
+Hash maps and hash sets are based on the principle of hashing, which maps keys to array indices using a hash function.
+Handling collisions efficiently is crucial for maintaining performance.
+
+WHEN TO USE:
+Use hash maps and hash sets when fast insertion, lookup, and deletion times are critical,
+ideal for scenarios where the order of elements doesn't matter, and unique elements are necessary.
+Hash maps for example are used in caching.
