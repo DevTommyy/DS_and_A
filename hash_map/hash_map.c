@@ -1,10 +1,3 @@
-/*
- * Things to remember when implementing it:
- * - use an array of pointer to linked lists as base
- * - resize when a certain threshold is exceeded (75%)
- * - when resizing instanciate an array twice the size of the previous
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -28,14 +21,14 @@ uint32_t fnv1a_hash(const void *data, size_t size) {
 // for the sake of simplicity this HashMap is <int, int>
 // (since my implementation of linked list is with int as a value)
 
-struct Node {
+struct MapNode {
     int key;
     LinkedList bucket; // this represents the value
-} typedef Node;
+} typedef MapNode;
 
 // the capacity will be doubled every time the 75% threshold is passed
 struct HashMap {
-    Node* entries;
+    MapNode* entries;
     int len;
     int capacity;
 } typedef HashMap;
@@ -71,7 +64,7 @@ HashMap create(int capacity) {
     HashMap map;
     map.capacity = capacity;
     map.len = 0;
-    map.entries = (Node *)malloc(capacity * sizeof(Node));
+    map.entries = (MapNode *)malloc(capacity * sizeof(MapNode));
 
     // Initialize each element in the array
     for (int i = 0; i < capacity; ++i) {
@@ -103,7 +96,7 @@ HashMap create(int capacity) {
 void rehash(HashMap* old_map) {
     // Create a new array of Nodes with double the capacity
     int new_capacity = SCALING_FACTOR * old_map->capacity;
-    Node* new_entries = (Node *)malloc(new_capacity * sizeof(Node));
+    MapNode* new_entries = (MapNode *)malloc(new_capacity * sizeof(MapNode));
 
     // Initialize each element in the new array
     for (int i = 0; i < new_capacity; ++i) {

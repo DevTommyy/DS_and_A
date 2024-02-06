@@ -2,3 +2,7 @@ TODO implement an unordered set, which is a collection of unique items. The unde
 but a dummy valu is put in the value slot of the hashmap
 
 TODO learn about other data structure like ring buffers and others
+
+TODO make an hashmap header
+
+TODO make the use cases file for hashmap and hashset
