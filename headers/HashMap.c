@@ -181,7 +181,7 @@ bool map_insert(HashMap* map, int key, int val) {
 
     // if the key exists and is the same as the one which is being inserted return
     if(map_contains_key(map, key)) {
-        printf("Key already present\n");
+        printf("Key %d already present\n", key);
         return false;
     }
 
@@ -285,7 +285,7 @@ void map_pprint(HashMap* map) {
 }
 
 /// Free all the allocated memory from the `HashMap`.
-/// This takes `O(1)` time
+/// This takes `O(n)` time
 void map_freeAll(HashMap map) {
     for (int i = 0; i < map.capacity; ++i) {
         list_freeAll(&(map.entries[i].bucket));
