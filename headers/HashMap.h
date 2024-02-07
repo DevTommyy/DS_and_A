@@ -40,6 +40,7 @@ bool map_needs_rehashing(HashMap* map);
 
 bool map_insert(HashMap* map, int key, int val);
 LinkedList map_remove_key(HashMap* map, int key); // removes a key and returns its value
+LinkedList map_get_key(HashMap* map, int key);
 
 bool map_contains_key(HashMap* map, int key);
 bool map_is_empty(HashMap* map);

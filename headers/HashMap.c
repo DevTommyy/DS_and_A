@@ -43,6 +43,7 @@ bool map_needs_rehashing(HashMap* map);
 
 bool map_insert(HashMap* map, int key, int val);
 LinkedList map_remove_key(HashMap* map, int key); // removes a key and returns its value
+LinkedList map_get_key(HashMap* map, int key);
 
 bool map_contains_key(HashMap* map, int key);
 bool map_is_empty(HashMap* map);
@@ -233,6 +234,38 @@ LinkedList map_remove_key(HashMap* map, int key) {
         return empty;
     }
 }
+
+/// Retrieves the values associated with a given key in the HashMap.
+///
+/// This operation takes O(1) time on average.
+///
+/// # Params
+///
+/// - `map` a pointer to the `HashMap` from which the key's values need to be retrieved.
+/// - `key` an `int` representing the key to be retrieved from the `HashMap`
+///
+/// # Returns
+///
+/// If the key exists in the HashMap, returns a LinkedList containing its associated values.
+/// If the key does not exist, returns an empty LinkedList.
+LinkedList map_get_key(HashMap* map, int key) {
+    uint32_t hashedKey = fnv1a_hash(&key, sizeof(key));
+    int entry = hashedKey % map->capacity;
+
+    if (map->entries[entry].key == key) {
+        return map->entries[entry].bucket;
+    } else {
+        printf("Key does not exist\n");
+        // Return an empty linked list
+        // WARNING accessing fields of this list
+        // results in undefined behavior
+        LinkedList empty;
+        empty.head = NULL;
+        empty.tail = NULL;
+        return empty;
+    }
+}
+
 
 /// Checks if a key exists in the `HashMap`.
 /// This operation takes `O(1)` time
