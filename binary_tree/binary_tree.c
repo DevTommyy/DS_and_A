@@ -248,6 +248,7 @@ bool compare(Node* self, Node* other) {
 
 /// finds the smallest value in a tree
 int min(Node* current) {
+    // the smallest value is always gonna be the left-most
     if (current->left == NULL) {
         return current->val;
     } else {
@@ -257,6 +258,7 @@ int min(Node* current) {
 
 /// finds the biggest value in a tree
 int max(Node* current) {
+    // the biggest value is always gonna be the right-most
     if (current->right == NULL) {
         return current->val;
     } else {
