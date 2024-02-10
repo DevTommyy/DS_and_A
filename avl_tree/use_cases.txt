@@ -1,0 +1,18 @@
+PROS:
+It avoids the case linear complexity runtimes for its operations thanks to its self
+balancing mechanics
+
+CONS:
+The AVL tree may have slightly higher overhead due to the need for balancing operations,
+which can impact performance in certain scenarios.
+
+MORE:
+The AVL tree is a sophisticated self balancing tree.
+The AVL tree guarantees via the enforcement of balancing algorithms that the
+left and right subtrees differ in height by at most 1 which yields at most a
+logarithmic runtime complexity
+
+WHEN TO USE:
+AVL trees are ideal when you require fast operations (insertion, deletion, lookup) on
+dynamic ordered data, especially when the data is frequently modified and needs to
+maintain balance.
