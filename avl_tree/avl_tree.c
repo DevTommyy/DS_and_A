@@ -80,7 +80,7 @@ void check_balance(Node** current) {
             ((*current)->left->right != NULL ? (*current)->left->right->height : -1) > 0) {
             right_rotation(current);
         } else {
-            left_rotation(&(*current)->left);
+            left_rotation(current);
             right_rotation(current);
         }
     } else if (right_height - left_height > 1) {
@@ -88,12 +88,11 @@ void check_balance(Node** current) {
             ((*current)->right->right != NULL ? (*current)->right->right->height : -1) < 0) {
             left_rotation(current);
         } else {
-            right_rotation(&(*current)->right);
+            right_rotation(current);
             left_rotation(current);
         }
     }
 }
-
 
 /// inserts a node into the tree if its the root
 /// or calls an helper function to insert it
@@ -423,13 +422,33 @@ int main() {
     Tree* tree_copy = (Tree*)malloc(sizeof(Tree));
     tree_copy->root = NULL;
     tree_copy->len = 0;
+    printf("Inserting 5\n");
     insert(tree_copy, 5);
+    printf("traversal after 5: ");
+    printInorder(tree_copy->root);
+    printf("\n");
+    printf("Inserting 3\n");
     insert(tree_copy, 3);
-    insert(tree_copy, 7);
-    insert(tree_copy, 2);
+    printf("traversal after 3: ");
+    printInorder(tree_copy->root);
+    printf("\n");
+    printf("Inserting 4\n");
     insert(tree_copy, 4);
+    printf("traversal after 4: ");
+    printInorder(tree_copy->root);
+    printf("\n");
+    printf("Inserting 6\n");
     insert(tree_copy, 6);
+    printf("traversal after 6: ");
+    printInorder(tree_copy->root);
+    printf("\n");
+    printf("Inserting 8\n");
     insert(tree_copy, 8);
+    printf("traversal after 8: ");
+    printInorder(tree_copy->root);
+    printf("\n");
+    // insert(tree_copy, 7);
+    // insert(tree_copy, 2);
 
     printf("Inorder traversal of the copy: ");
     printInorder(tree_copy->root);
