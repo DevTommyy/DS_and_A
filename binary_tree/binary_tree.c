@@ -223,27 +223,26 @@ bool delete(Tree* tree, int val) {
 ///
 /// # Parameters 
 ///
-/// `self` the first `Tree*`
-/// `other` the second `Tree*`
+/// `self` a `Node*` to the first tree
+/// `other` a `Node*` to the second tree
 ///
 /// # Returns 
 /// 
 /// `true` if they are equal, `false` if they arent
 bool compare(Node* self, Node* other) {
-    // both are null
+    // If both nodes are NULL, they are equal
     if (self == NULL && other == NULL) {
         return true;
     }
-    if (self->val == other->val) {
-        // they have the same value so a recursive check is performed
-        // as soon as one value is different than the other or one is
-        // NULL and the other isn't the function return false
-        return compare(self->left, other->left) && compare(self->right, other->right);
-    } else {
+    // If one node is NULL while the other isn't, they are not equal
+    if (self == NULL || other == NULL) {
         return false;
     }
-    // this is if only one of the two is null
-    return false;
+
+    // Compare values and recursively check left and right subtrees
+    return (self->val == other->val) &&
+           compare(self->left, other->left) &&
+           compare(self->right, other->right);
 }
 
 /// finds the smallest value in a tree
