@@ -4,6 +4,12 @@
 
 #include "../headers/Deque.h"
 
+/// Return the greater of two values
+/// 
+/// # Prams
+///
+/// - `a` the first value
+/// - `b` the second value
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 
 struct Node {
@@ -18,11 +24,13 @@ struct Tree {
     int len;
 } typedef Tree;
 
+// -- Utils
 int get_height(Node* node);
 int get_balance(Node* node);
 Node* get(Node* current, int val);
 Node* getParent(Node* current, int val);
 
+// -- AVL Tree properties
 void left_rotation(Node** root);
 void right_rotation(Node** root);
 void check_balance(Node** current);
@@ -40,11 +48,17 @@ bool contains(Node* current, int val);
 bool compare(Node* self, Node* other);
 
 bool delete(Tree* tree, int val);
-// a stack (in this case a deque implementation) is needed for this
 
+// -- Basics
 void printInorder(Node* node);
 void freeAll(Node* node);
 
+/// Returns the height of the given node.
+/// This is a `O(1)` time operation
+///
+/// # Params
+///
+/// - `node` a `Node*` to the node to get height from
 int get_height(Node* node) {
     if(node == NULL) {
         return 0;
@@ -52,6 +66,12 @@ int get_height(Node* node) {
     return node->height;
 }
 
+/// Returns the balance factor of the given node.
+/// This is a `O(1)` time operation
+///
+/// # Params
+///
+/// - `node` a `Node*` to the node to get balance from
 int get_balance(Node* node) {
     if (node == NULL) {
         return 0;
@@ -60,7 +80,8 @@ int get_balance(Node* node) {
     return get_height(node->left) - get_height(node->right);
 }
 
-/// gets a node from the tree given it's value
+/// Gets a node from the tree given it's value.
+/// This is a `O(log n)` time operation
 ///  
 /// # Returns
 /// A `NULL` pointer if the node isn't found
@@ -80,7 +101,8 @@ Node* get(Node* current, int val) {
     }
 }
 
-/// gets the parent of a node given the child value
+/// Gets the parent of a node given the child value.
+/// This is a `O(log n)` time operation
 /// 
 /// # Returns
 /// A `NULL` pointer if the parent node isn't found
@@ -105,6 +127,12 @@ Node* getParent(Node* current, int val) {
     }
 }
 
+/// Applies the left rotation of the `AVL Tree`.
+/// This is a `O(1)` time operation
+///
+/// # Params
+///
+/// - `root` a `Node**` that represent the root of the rotation
 void left_rotation(Node** root) {
     if(*root == NULL || (*root)->right == NULL)  return;
 
@@ -118,6 +146,12 @@ void left_rotation(Node** root) {
     right_node->height = MAX(get_height(right_node->left), get_height(right_node->right)) + 1;
 }
 
+/// Applies the right rotation of the `AVL Tree`.
+/// This is a `O(1)` time operation
+///
+/// # Params
+///
+/// - `root` a `Node**` that represent the root of the rotation
 void right_rotation(Node** root) {
     if(*root == NULL || (*root)->left == NULL)  return;
 
@@ -131,6 +165,12 @@ void right_rotation(Node** root) {
     left_node->height = MAX(get_height(left_node->left), get_height(left_node->right)) + 1;
 }
 
+/// Checks if a rotation needs to be applied to the`AVL Tree`.
+/// This is a `O(1)` time operation
+///
+/// # Params
+///
+/// - `current` a `Node**` that represents the node to check for
 void check_balance(Node** current) {
     int balance = get_balance(*current);
     printf("current: %d, balance, %d\n", (*current)->val, balance);
@@ -157,8 +197,11 @@ void check_balance(Node** current) {
     // Update heights after rotations
     (*current)->height = MAX(get_height((*current)->left), get_height((*current)->right)) + 1;
 }
-/// inserts a node into the tree if its the root
-/// or calls an helper function to insert it
+
+/// Inserts a node into the tree if its the root
+/// or calls an helper function to insert it.
+/// This is a `O(log n)` time operation in the case
+/// that the node inserted ins't the root
 /// 
 /// # Params
 ///
@@ -181,7 +224,8 @@ void insert(Tree* tree, int val) {
     }
 }
 
-/// inserts a node into the tree
+/// Inserts a node into the tree.
+/// This is a `O(log n)` time operation
 /// 
 /// # Params
 ///
@@ -212,7 +256,8 @@ void insertNode(Node** current, Node* node) {
     printf("\n");
 }
 
-/// checks if a node is in the tree
+/// Checks if a node is in the tree
+/// This is a `O(log n)` time operation
 /// 
 /// # Params
 /// `current` the root of the `Tree`
@@ -236,7 +281,8 @@ bool contains(Node* current, int val) {
     }
 }
 
-/// compares two trees
+/// Compares two trees.
+/// This is a `O(n)` time operation
 ///
 /// # Parameters 
 ///
@@ -262,6 +308,17 @@ bool compare(Node* self, Node* other) {
            compare(self->right, other->right);
 }
 
+/// Deletes a node from the `AVL Tree` and makes sure its properties are manteined.
+/// This is a `O(log n)` time operation
+/// 
+/// # Params
+/// 
+/// - `tree` a `Tree*` representing the tree in which to perform the deletion
+/// -`val` an `int` representing the value to find and delete
+/// 
+/// # Returns
+/// 
+/// `true` if the value was removed successfully, otherwise `false`
 bool delete(Tree* tree, int val) {
     Node* to_remove = get(tree->root, val);
     if (tree->len == 0 || to_remove == NULL) {
@@ -348,10 +405,7 @@ bool delete(Tree* tree, int val) {
     }
 }
 
-
-
-// =============================== UTILS ======================
-/// prints the tree in orders based on where you put the print
+/// prints the tree in orders based on where you put the print, this takes `O(n)` time
 void printInorder(Node* node) {
     if (node != NULL) {
         printf("%d ", node->val); // if print is there, from start to end (preorder)
@@ -362,7 +416,7 @@ void printInorder(Node* node) {
     }
 }
 
-/// frees all the memory allocated by the list
+/// frees all the memory allocated by the tree, this takes `O(n)` time
 void freeAll(Node* node) {
     if (node != NULL) {
         freeAll(node->left);
