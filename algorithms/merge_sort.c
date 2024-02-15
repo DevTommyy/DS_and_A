@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 void merge(int arr[], int left, int mid, int right) {
   int left_arr_size = mid - left + 1;
@@ -68,9 +69,14 @@ int main(int argc, char *argv[]) {
   }
 
   printf("after: \n");
+
+  clock_t start = clock();
   merge_sort(arr, 0, size - 1);
+  clock_t end = clock();
+  double elapsed = ((double)(end - start)) / CLOCKS_PER_SEC;
 
   for (int i = 0; i < size; i++) {
     printf("%d\n", arr[i]);
   }
+  printf("time elapsed: %f\n", elapsed);
 }
